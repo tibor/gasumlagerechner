@@ -1,0 +1,59 @@
+<html>
+
+<head>
+    <script src="script.js"></script>
+    <style src="style.css"></style>
+</head>
+
+<body>
+    <section id="app" class="df">
+
+        <form @submit=calcCosts>
+            <div class="pt05 pr05 pb05 pl05">
+                <div class="fs125 fw800">
+                    <input type="number" @input="importRangeValue" data-target="kwhCount" :value="kwhCount" name="kwh"> kWh<br>
+                </div>
+
+                <div class="fs0800"><label for="kwh">Ihr aktueller Jahresverbrauch in kWh</label></div>
+
+                <input type="range" @input="importRangeValue" data-target="kwhCount" min=2000 max=20000 step=10 class="slider">
+            </div>
+
+            <div class="pt05 pr05 pb05 pl05">
+                <div class="fs125 fw800"><input type="number" @input="importRangeValue" data-target="pricePerKwh" :value="pricePerKwh" name="currentprice"> Cent</div>
+
+                <div class="fs0800"><label for="currentprice">Ihre aktuellen Kosten pro Kilowattstunde:</label></div>
+
+                <input type="range" @input="importRangeValue" data-target="pricePerKwh" :value="pricePerKwh" min=20 max=120 step=1 class="slider">
+            </div>
+
+            <div class="pt05 pr05 pb05 pl05">
+                <div class="fs125 fw800"><input type="number" @input="importRangeValue" data-target="pricePerKwhNextYear" :value="pricePerKwhNextYear" name="nextprice"> Cent</div>
+
+                <div class="fs0800"><label for="nextprice">Ihre Kosten pro Kilowattstunde im nächsten Jahr:</label></div>
+
+                <input type="range" @input="importRangeValue" data-target="pricePerKwhNextYear" :value="pricePerKwhNextYear" min=20 max=120 step=1 class="slider">
+            </div>
+
+            <div class="pt05 pr05 pb05 pl05">
+                <input type="submit" value="Berechnen" class="pt025 pr05 pb025 pl05 ttu fs0800 fw800">
+            </div>
+        </form>
+
+        <hr>
+
+        <div>
+            <div class="pt05 pr05 pb05 pl05">
+                Ihre Kosten in diesem Jahr:
+                <div class="fw800 fs125">{{costThisYear}} Euro</div>
+            </div>
+            <div class="pt05 pr05 pb05 pl05">
+                Ihre Kosten im nächsten Jahr:
+                <div><span class="fw800 fs125">{{costNextYear}} Euro</span> <span class="fs0800" :style="{color: (costDiff > 0 ? '#a32929': '#52a329')}">({{(costDiff ** 2) ** (1/2)}} Euro {{costDiff > 0 ? 'mehr' : 'weniger'}}, pro Monat {{Math.round(costDiff / 12)}} Euro)</span></div>
+
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
